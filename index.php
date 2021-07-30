@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	
+
+	
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store Locator</title>
+
+  <!-- CSS Custom Library-->
+  <link rel="stylesheet" href="maincss.css" />
+</head>
+
+<body>
+	
+
+	
+  <!-- Main Loader Spinner -->
+  <div id="loader">
+	<div class="loading">
+      <div class="spinner-border text-primary" role="status" style="color:#95c21a !important;">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <!-- Main Search -->
+  <div class="container-fluid" id="search-main">
+    <div class="row g-0">
+      <div class="col-md-4" id="search_nearby">
+        <button id="search_nearby_button" type="button" class="btn btn-primary btn-block btn-lg" onclick="searchStores.gps();" style="background-color:#95c21a !important; color:#fff !important; border: 1px solid #fff !important;margin-bottom:1em !important;">
+          <i class="fas fa-location-arrow mr-2"></i> SEARCH NEARBY
+        </button>
+      </div>
+      <div class="col-md-4" id="search_input">
+        <input id="address-main" type="text" class="form-control form-control-lg" placeholder="City, Zip Code, or Address" onchange="handle.address.change('main')" style="margin-bottom:1em !important;border-color:#95c21a !important;" />
+      </div>
+      <div class="col-md-4" id="find_now">
+        <button id="find_now_button" type="button" class="btn btn-primary btn-lg btn-block" onclick="searchStores.address();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;margin-bottom:1em !important;">
+          FIND <i class="fas fa-search ml-2"></i>
+        </button>
+      </div>
+      <div class="col-md-3" style="display:none;" id="col-modal">
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#online-modal" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;margin-bottom:1em !important;">
+          BUY ONLINE <i class="fas fa-desktop ml-2"></i>
+        </button>
+      </div>
+	</div>
+   
+  </div>
+  </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container-fluid" id="results-main">
+    <div class="row g-0">
+      <div class="col" id="col-sidebar">
+        
+
+        <!-- Products -->
+        <div id="products">
+          <ul class="list-group list-group-flush">
+            <!-- Header -->
+            <li class="list-group-item">
+              <div class="d-flex w-100 align-items-center justify-content-between">
+                <span>Search Product(s)</span>
+                <button type="button" class="btn btn-link" onclick="handle.popup.close();" style="color:#95c21a !important;">
+                  <i class="fas fa-arrow-left mr-1"></i> back to results
+                </button>
+              </div>
+            </li>
+            <!-- Filters -->
+            <li class="list-group-item">
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary btn-sm mr-1" onclick="searchStores.products();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;">
+                  Apply
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm ml-1" onclick="handle.upc.clear();">
+                  Clear
+                </button>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Results -->
+          <div class="row g-0" id="product-results" data-scrollTop="0"></div>
+        </div>
+        <!-- Stores -->
+        <div id="stores">
+          <!-- Search Bar -->
+          <div class="row g-0">
+            <div class="col-auto">
+              <button class="btn btn-primary" onclick="searchStores.gps();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;">
+                <i class="fas fa-location-arrow"></i>
+              </button>
+            </div>
+            <div class="col">
+              <input id="address-sidebar" type="text" class="form-control" placeholder="City, Zip Code, or Address" onchange="handle.address.change('sidebar')" style="border-color:#95c21a !important;" />
+            </div>
+            <div class="col-auto">
+              <button id="find_now_button_small" class="btn btn-primary" onclick="searchStores.address();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+          <!-- Header -->
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="d-flex w-100 align-items-center justify-content-between">
+                <span>Search Result(s)</span>
+                <button id="search_by_product_button" type="button" class="btn btn-light" onclick="show.products();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;">
+                  Search by Product
+                </button>
+              </div>
+            </li>
+          </ul>
+          <!-- Results -->
+          <ul class="list-group list-group-flush" id="stores-results" data-scrollTop="0"></ul>
+        </div>
+
+        <!-- Store -->
+        <div id="store">
+          <!-- Header -->
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="d-flex w-100 align-items-center justify-content-between">
+                <span>&nbsp;</span>
+                <button type="button" class="btn btn-link" onclick="handle.popup.close();" style="color:#95c21a !important;">
+                  <i class="fas fa-arrow-left mr-1"></i> back to results
+                </button>
+              </div>
+            </li>
+          </ul>
+          <!-- Result -->
+          <div id="store-result">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h3 id="store-name" style="font-size:1.4em !important;color:#95c21a !important;"></h3>
+                <p id="store-details"></p>
+                <div class="alert alert-secondary" role="alert" id="store-products-availability" style="background-color:#fff !important;border-color:#95c21a !important;border-radius:0px !important;"></div>
+              </li>
+            </ul>
+            <div class="row g-0" id="store-products" data-scrollTop="0"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Maps -->
+      <div class="col d-none d-md-block" id="col-map">
+        
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal" id="online-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+                  </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#95c21a !important; border-color:#95c21a !important">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<!-- Javascript External Libraries -->
+<script src="jquery.min.js"></script>
+<script src="all.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCYSSZRMXdDSsz1wL8Ya9o2B1T6xiqJpA"></script>
+<script src="bootstrap.min.js"></script>
+
+<!-- Javascript Custom Variables -->
+<script type="text/javascript">
+  /**************
+   * PROPERTIES *
+   **************/
+  var BRAND = "WildFriendsFoods";
+  var BRAND_BASE = "WildFriendsFoods_";
+  var BRAND_FILES = "wildfriendsfoods_";
+  var COUNTRY = "unitedstates";
+  if (COUNTRY=="canada"){
+	  var CENTER_INITIAL = {
+		lat: 56.1303,
+		lng: -106.3467,
+	  };
+	  var COUNTRY_RESTRICTION ="CA";
+  }else if(COUNTRY=="unitedkingdom"){
+	  var CENTER_INITIAL = {
+		lat: 55.3781,
+		lng: 3.4360,
+	  };
+	  var COUNTRY_RESTRICTION ="UK";
+  }else{
+	  var CENTER_INITIAL = {
+		lat: 39.8283,
+		lng: -98.5795,
+	  };
+	  var COUNTRY_RESTRICTION ="US";
+  }
+ if(COUNTRY=="unitedkingdom" && BRAND=="FodyFoods"){
+	 document.getElementById("search_by_product_button").style.display = "none";
+ }
+	
+
+if(BRAND=="Teras"){
+	
+	let buttonElements = document.querySelectorAll(".btn");
+
+	for (let i = 0; i < buttonElements.length; i++) {
+		buttonElements[i].style.textTransform = "lowercase";
+	}
+	
+	let formElements = document.querySelectorAll(".form-control");
+
+	for (let i = 0; i < formElements.length; i++) {
+		formElements[i].style.textTransform = "lowercase";
+	}
+	
+	document.body.style.textTransform = "lowercase";
+	
+}
+	
+  var RADIUS = 50;
+  var LIMIT = 25;
+  var SEARCH_TIME = 3;
+  var ICON_COLOR = "#95c21a";
+  var MARKER_ICON = "marker_wildfriendsfoods.png";
+  var HAS_STORES = false;
+  var HAS_BGCOLOR = false;
+  var bg_color = "";
+  var PAGE_URL = "main";
+  var UPCS = "upcs not set";
+  console.log("Main Page "+PAGE_URL);
+  console.log(UPCS);
+	//console.log("hello"+window.location.search);
+</script>
+
+<!-- Javascript Custom Libraries -->
+<script src="mainjs.js"></script>
+
+</html>
