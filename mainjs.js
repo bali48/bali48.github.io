@@ -700,7 +700,7 @@ const fetch = {
     this._loading();
 
     $.get(
-      "https://WildFriendsFoods.com/wp-json/wc/v3/products",
+      "https://naturanutbutter.com/wp-json/wc/v3/products",
       options,
       (result, status) => {
         this._done();
