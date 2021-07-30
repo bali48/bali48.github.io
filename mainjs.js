@@ -700,7 +700,7 @@ const fetch = {
     this._loading();
 
     $.get(
-      "https://naturanutbutter.com/wp-json/wc/v3/products",
+      "https://WildFriendsFoods.com/wp-json/wc/v3/products",
       options,
       (result, status) => {
         this._done();
@@ -742,7 +742,7 @@ const fetch = {
 
           if ("storedata2" in result) {
             error.stores(
-              `Oh no! It seems there are no retail locations in your area that carry ${BRAND}`
+              `Oh no! It seems there are no retail locations in your area that carry naturanutbutter`
             );
           }
 
