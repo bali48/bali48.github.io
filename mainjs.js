@@ -282,7 +282,7 @@ class MyMap {
   }
 
   addressToCoordinates(address, callback) {
-    console.log("address", address);
+    // console.log("address", address);
     this.geocoder.geocode(
       {
         address: address,
@@ -469,7 +469,7 @@ const searchStores = {
 const format = {
   products: {
     product: function (product) {
-      console.log("hahaha");
+      // console.log("hahaha");
       return `
       <div class="col-lg-4" data-upc="${product["id"]}" onClick="handle.upc.toggle(this);">
           <div class="d-flex flex-column align-items-center py-4 pointer">
@@ -486,7 +486,7 @@ const format = {
       return `
             <div class="col-lg-4">
                 <div class="d-flex flex-column align-items-center py-4">
-                    <img src="https://shelfsmartdata.com/app/slt/shelfsmartlocator/images/${BRAND}/${product["upc"]}.png" />
+                    <img src="${product["images"][0]["src"]}" height="175px" />
                     <h6 class="mb-1 text-center w-75">${product["name"]}</h6>
                 </div>
             </div>
@@ -555,7 +555,7 @@ const format = {
         ","
       )}</div>
             <div class="details my-3">
-              <p class="my-1" style="font-size:1.3em;color:${ICON_COLOR} !important"><i class="fas fa-car"></i> ${distance} miles</p>
+               <!-- <p class="my-1" style="font-size:1.3em;color:${ICON_COLOR} !important"><i class="fas fa-car"></i> ${distance} miles</p> -->
               ${html_phone}
             </div>
             <a class="btn btn-outline-primary btn-block my-1 iwindow_directions" href="https://maps.google.com/maps?saddr=${
@@ -591,7 +591,7 @@ const format = {
                   ", ,",
                   ","
                 )}</p>
-                <small>${distance} ${distancemeasure}</small>
+                <!-- <small>${distance} ${distancemeasure}</small> -->
             </div>
             <div class="d-flex">
               <a href="https://maps.google.com/maps?saddr=${
@@ -621,7 +621,7 @@ const set = {
     const html = products
       .map((product) => format.products.product(product))
       .join("");
-    console.log("html", html);
+    // console.log("html", html);
     $(elements.productResults).html(html);
 
     if (!hidden) {
@@ -730,7 +730,54 @@ const fetch = {
           result["storedata4"] ||
           result["storedata5"] ||
           [];
-        stores = [];
+        stores = [
+          {
+            id: "1",
+            name: "Southwest Farmers Market",
+            address: "Southwest Farmers Market African goods store",
+            city: "Houston",
+            state: "TX",
+            zipcode: "77071",
+            lat: "29.67061101793852",
+            lng: "-95.52866721039307",
+            phone: "(713) 774-8822",
+            distance: "",
+            products: [
+              {
+                name: "Peanut Butter Blend With Coconut",
+                upc: "1006",
+                images: [
+                  {
+                    src: "https://naturanutbutter.com/wp-content/uploads/2021/07/4.png",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "2",
+            name: "Southwest Farmers Market",
+            address: "Southwest Farmers Market 9801 Bissonnet",
+            city: "Houston",
+            state: "TX",
+            zipcode: "77036",
+            lat: "29.67479858019355",
+            lng: "-95.54971545619088",
+            phone: "(713) 774-8822",
+            distance: "",
+            products: [
+              {
+                name: "Peanut Butter Blend With Coconut",
+                upc: "1006",
+                images: [
+                  {
+                    src: "https://naturanutbutter.com/wp-content/uploads/2021/07/4.png",
+                  },
+                ],
+              },
+            ],
+          },
+        ];
         if (stores.length === 0) {
           if (
             "storedata" in result ||

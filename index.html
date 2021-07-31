@@ -21,7 +21,7 @@
   <!-- Main Loader Spinner -->
   <div id="loader">
 	<div class="loading">
-      <div class="spinner-border text-primary" role="status" style="color:#95c21a !important;">
+      <div class="spinner-border text-primary" role="status" style="color:#1a73e8 !important;">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
@@ -30,20 +30,20 @@
   <div class="container-fluid" id="search-main">
     <div class="row g-0">
       <div class="col-md-4" id="search_nearby">
-        <button id="search_nearby_button" type="button" class="btn btn-primary btn-block btn-lg" onclick="searchStores.gps();" style="background-color:#95c21a !important; color:#fff !important; border: 1px solid #fff !important;margin-bottom:1em !important;">
+        <button id="search_nearby_button" type="button" class="btn btn-primary btn-block btn-lg" onclick="searchStores.gps();" style="background-color:#1a73e8 !important; color:#fff !important; border: 1px solid #fff !important;margin-bottom:1em !important;">
           <i class="fas fa-location-arrow mr-2"></i> SEARCH NEARBY
         </button>
       </div>
       <div class="col-md-4" id="search_input">
-        <input id="address-main" type="text" class="form-control form-control-lg" placeholder="City, Zip Code, or Address" onchange="handle.address.change('main')" style="margin-bottom:1em !important;border-color:#95c21a !important;" />
+        <input id="address-main" type="text" class="form-control form-control-lg" placeholder="City, Zip Code, or Address" onchange="handle.address.change('main')" style="margin-bottom:1em !important;border-color:#1a73e8 !important;" />
       </div>
       <div class="col-md-4" id="find_now">
-        <button id="find_now_button" type="button" class="btn btn-primary btn-lg btn-block" onclick="searchStores.address();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;margin-bottom:1em !important;">
+        <button id="find_now_button" type="button" class="btn btn-primary btn-lg btn-block" onclick="searchStores.address();" style="background-color:#1a73e8 !important; color:#fff !important;border: 1px solid #fff !important;margin-bottom:1em !important;">
           FIND <i class="fas fa-search ml-2"></i>
         </button>
       </div>
       <div class="col-md-3" style="display:none;" id="col-modal">
-        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#online-modal" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;margin-bottom:1em !important;">
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#online-modal" style="background-color:#1a73e8 !important; color:#fff !important;border: 1px solid #fff !important;margin-bottom:1em !important;">
           BUY ONLINE <i class="fas fa-desktop ml-2"></i>
         </button>
       </div>
@@ -66,7 +66,7 @@
             <li class="list-group-item">
               <div class="d-flex w-100 align-items-center justify-content-between">
                 <span>Search Product(s)</span>
-                <button type="button" class="btn btn-link" onclick="handle.popup.close();" style="color:#95c21a !important;">
+                <button type="button" class="btn btn-link" onclick="handle.popup.close();" style="color:#1a73e8 !important;">
                   <i class="fas fa-arrow-left mr-1"></i> back to results
                 </button>
               </div>
@@ -74,7 +74,7 @@
             <!-- Filters -->
             <li class="list-group-item">
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn-sm mr-1" onclick="searchStores.products();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;">
+                <button type="button" class="btn btn-primary btn-sm mr-1" onclick="searchStores.products();" style="background-color:#1a73e8 !important; color:#fff !important;border: 1px solid #fff !important;">
                   Apply
                 </button>
                 <button type="button" class="btn btn-outline-secondary btn-sm ml-1" onclick="handle.upc.clear();">
@@ -92,15 +92,15 @@
           <!-- Search Bar -->
           <div class="row g-0">
             <div class="col-auto">
-              <button class="btn btn-primary" onclick="searchStores.gps();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;">
+              <button class="btn btn-primary" onclick="searchStores.gps();" style="background-color:#1a73e8 !important; color:#fff !important;border: 1px solid #fff !important;">
                 <i class="fas fa-location-arrow"></i>
               </button>
             </div>
             <div class="col">
-              <input id="address-sidebar" type="text" class="form-control" placeholder="City, Zip Code, or Address" onchange="handle.address.change('sidebar')" style="border-color:#95c21a !important;" />
+              <input id="address-sidebar" type="text" class="form-control" placeholder="City, Zip Code, or Address" onchange="handle.address.change('sidebar')" style="border-color:#1a73e8 !important;" />
             </div>
             <div class="col-auto">
-              <button id="find_now_button_small" class="btn btn-primary" onclick="searchStores.address();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;">
+              <button id="find_now_button_small" class="btn btn-primary" onclick="searchStores.address();" style="background-color:#1a73e8 !important; color:#fff !important;border: 1px solid #fff !important;">
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -110,7 +110,7 @@
             <li class="list-group-item">
               <div class="d-flex w-100 align-items-center justify-content-between">
                 <span>Search Result(s)</span>
-                <button id="search_by_product_button" type="button" class="btn btn-light" onclick="show.products();" style="background-color:#95c21a !important; color:#fff !important;border: 1px solid #fff !important;">
+                <button id="search_by_product_button" type="button" class="btn btn-light" onclick="show.products();" style="background-color:#1a73e8 !important; color:#fff !important;border: 1px solid #fff !important;">
                   Search by Product
                 </button>
               </div>
@@ -127,7 +127,7 @@
             <li class="list-group-item">
               <div class="d-flex w-100 align-items-center justify-content-between">
                 <span>&nbsp;</span>
-                <button type="button" class="btn btn-link" onclick="handle.popup.close();" style="color:#95c21a !important;">
+                <button type="button" class="btn btn-link" onclick="handle.popup.close();" style="color:#1a73e8 !important;">
                   <i class="fas fa-arrow-left mr-1"></i> back to results
                 </button>
               </div>
@@ -137,9 +137,9 @@
           <div id="store-result">
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
-                <h3 id="store-name" style="font-size:1.4em !important;color:#95c21a !important;"></h3>
+                <h3 id="store-name" style="font-size:1.4em !important;color:#1a73e8 !important;"></h3>
                 <p id="store-details"></p>
-                <div class="alert alert-secondary" role="alert" id="store-products-availability" style="background-color:#fff !important;border-color:#95c21a !important;border-radius:0px !important;"></div>
+                <div class="alert alert-secondary" role="alert" id="store-products-availability" style="background-color:#fff !important;border-color:#1a73e8 !important;border-radius:0px !important;"></div>
               </li>
             </ul>
             <div class="row g-0" id="store-products" data-scrollTop="0"></div>
@@ -163,7 +163,7 @@
         <div class="modal-body">
                   </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#95c21a !important; border-color:#95c21a !important">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color:#1a73e8 !important; border-color:#1a73e8 !important">Close</button>
         </div>
 
       </div>
@@ -232,7 +232,7 @@ if(BRAND=="Teras"){
   var RADIUS = 50;
   var LIMIT = 25;
   var SEARCH_TIME = 3;
-  var ICON_COLOR = "#95c21a";
+  var ICON_COLOR = "#1a73e8";
   var MARKER_ICON = "marker_WildFriendsFoods.png";
   var HAS_STORES = false;
   var HAS_BGCOLOR = false;
