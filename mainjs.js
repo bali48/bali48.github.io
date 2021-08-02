@@ -555,7 +555,7 @@ const format = {
         ","
       )}</div>
             <div class="details my-3">
-               <!-- <p class="my-1" style="font-size:1.3em;color:${ICON_COLOR} !important"><i class="fas fa-car"></i> ${distance} miles</p> -->
+               <p class="my-1" style="font-size:1.3em;color:${ICON_COLOR} !important"><i class="fas fa-car"></i> ${distance} miles</p>
               ${html_phone}
             </div>
             <a class="btn btn-outline-primary btn-block my-1 iwindow_directions" href="https://maps.google.com/maps?saddr=${
@@ -579,6 +579,7 @@ const format = {
       } else {
         distancemeasure = "miles";
       }
+      distancemeasure = "miles";
       // TODO: ES6 support required
       const html = `
       <div class="list-group-item list-group-item-action" >
@@ -591,7 +592,7 @@ const format = {
                   ", ,",
                   ","
                 )}</p>
-                <!-- <small>${distance} ${distancemeasure}</small> -->
+                <small>${distance} ${distancemeasure}</small>
             </div>
             <div class="d-flex">
               <a href="https://maps.google.com/maps?saddr=${
@@ -627,6 +628,25 @@ const set = {
     if (!hidden) {
       showProducts();
     }
+  },
+  order: function (stores, options) {
+    $.each(stores, function (i, store) {
+      store.distance = handle.get_distance(
+        { lat: store.lat, lng: store.lng },
+        { lat: options.lat, lng: options.lng }
+      );
+    });
+    stores.sort(set.sort_by_dist);
+    $(".activmap-store").remove();
+    $.each(stores, function (i, store) {
+      console.log("store", store);
+      // activmap_stores.append(store.html);
+      // if (store.isVisible) $("#activmap-store_" + store.id).show();
+    });
+    return stores;
+  },
+  sort_by_dist: function (a, b) {
+    return a.distance < b.distance ? -1 : a.distance > b.distance ? 1 : 0;
   },
   stores: function (stores, message) {
     //console.log("stores:", stores, "message:", message);
@@ -713,6 +733,7 @@ const fetch = {
     );
   },
   stores: function (options, callback) {
+    console.log("options", options);
     this._loading();
 
     $.get(
@@ -805,8 +826,8 @@ const fetch = {
           "storedata4" in result
             ? "We can't find any stores that have all the items you selected, but the stores below do carry one or more of what you are looking for."
             : null;
-
-        callback(stores, message);
+        let updatedStores = set.order(stores, options);
+        callback(updatedStores, message);
       }
     );
   },
@@ -920,6 +941,24 @@ const handle = {
         $(elements.addressMain).val(address);
       }
     },
+  },
+  get_distance: function (p1, p2) {
+    // s.unit == "km" ? 6378137 :
+    var R = 6371;
+    var dLat = handle.rad(p2.lat - p1.lat);
+    var dLong = handle.rad(p2.lng - p1.lng);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(handle.rad(p1.lat)) *
+        Math.cos(handle.rad(p2.lat)) *
+        Math.sin(dLong / 2) *
+        Math.sin(dLong / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
+  },
+  rad: function (a) {
+    return (a * Math.PI) / 180;
   },
 };
 
