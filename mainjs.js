@@ -736,100 +736,111 @@ const fetch = {
     console.log("options", options);
     this._loading();
 
-    $.get(
-      "https://shelfsmartdata.com/app/slt/shelfsmartlocator/include/mainstores.php",
-      options,
-      (result, status) => {
-        this._done();
+    // $.get(
+    //   "https://shelfsmartdata.com/app/slt/shelfsmartlocator/include/mainstores.php",
+    //   options,
+    //   (result, status) => {
+    this._done();
 
-        if (status !== "success") return;
+    // if (status !== "success") return;
 
-        let stores =
-          result["storedata"] ||
-          result["storedata2"] ||
-          result["storedata3"] ||
-          result["storedata4"] ||
-          result["storedata5"] ||
-          [];
-        stores = [
+    let stores = [
+      {
+        id: "1",
+        name: "Southwest Farmers Market",
+        address: "Southwest Farmers Market African goods store",
+        city: "Houston",
+        state: "TX",
+        zipcode: "77071",
+        lat: "29.67061101793852",
+        lng: "-95.52866721039307",
+        phone: "(713) 774-8822",
+        distance: "",
+        products: [
           {
-            id: "1",
-            name: "Southwest Farmers Market",
-            address: "Southwest Farmers Market African goods store",
-            city: "Houston",
-            state: "TX",
-            zipcode: "77071",
-            lat: "29.67061101793852",
-            lng: "-95.52866721039307",
-            phone: "(713) 774-8822",
-            distance: "",
-            products: [
+            name: "Peanut Butter Blend With Coconut",
+            upc: "1006",
+            images: [
               {
-                name: "Peanut Butter Blend With Coconut",
-                upc: "1006",
-                images: [
-                  {
-                    src: "https://naturanutbutter.com/wp-content/uploads/2021/07/4.png",
-                  },
-                ],
+                src: "https://naturanutbutter.com/wp-content/uploads/2021/07/4.png",
               },
             ],
           },
+        ],
+      },
+      {
+        id: "2",
+        name: "Southwest Farmers Market",
+        address: "Southwest Farmers Market 9801 Bissonnet",
+        city: "Houston",
+        state: "TX",
+        zipcode: "77036",
+        lat: "29.67479858019355",
+        lng: "-95.54971545619088",
+        phone: "(713) 774-8822",
+        distance: "",
+        products: [
           {
-            id: "2",
-            name: "Southwest Farmers Market",
-            address: "Southwest Farmers Market 9801 Bissonnet",
-            city: "Houston",
-            state: "TX",
-            zipcode: "77036",
-            lat: "29.67479858019355",
-            lng: "-95.54971545619088",
-            phone: "(713) 774-8822",
-            distance: "",
-            products: [
+            name: "Peanut Butter Blend With Coconut",
+            upc: "1006",
+            images: [
               {
-                name: "Peanut Butter Blend With Coconut",
-                upc: "1006",
-                images: [
-                  {
-                    src: "https://naturanutbutter.com/wp-content/uploads/2021/07/4.png",
-                  },
-                ],
+                src: "https://naturanutbutter.com/wp-content/uploads/2021/07/4.png",
               },
             ],
           },
-        ];
-        if (stores.length === 0) {
-          if (
-            "storedata" in result ||
-            "storedata3" in result ||
-            "storedata4" in result
-          ) {
-            error.stores("No search results returned!");
-          }
+        ],
+      },
+    ];
+    let storesByProducts = [];
+    if (options.upcSelect) {
+      let selectedItems = [];
+      selectedItems = options.upcSelect.split(",");
+      console.log("ups selected", selectedItems);
 
-          if ("storedata2" in result) {
-            error.stores(
-              `Oh no! It seems there are no retail locations in your area that carry naturanutbutter`
-            );
-          }
-
-          if ("storedata5" in result) {
-            error.stores(
-              "We can't find any stores with any of the items you are searching for. Please try searching your area without selecting items to find stores that can order the product for you."
-            );
-          }
-          return;
-        }
-
-        const message =
-          "storedata4" in result
-            ? "We can't find any stores that have all the items you selected, but the stores below do carry one or more of what you are looking for."
-            : null;
-        let updatedStores = set.order(stores, options);
-        callback(updatedStores, message);
+      stores.forEach((store) => {
+        store.products.some((product) => selectedItems.includes(product.upc))
+          ? storesByProducts.push(store)
+          : null;
+      });
+    }
+    if (stores.length === 0) {
+      if (
+        "storedata" in result ||
+        "storedata3" in result ||
+        "storedata4" in result
+      ) {
+        error.stores("No search results returned!");
       }
-    );
+
+      if ("storedata2" in result) {
+        error.stores(
+          `Oh no! It seems there are no retail locations in your area that carry naturanutbutter`
+        );
+      }
+
+      if ("storedata5" in result) {
+        error.stores(
+          "We can't find any stores with any of the items you are searching for. Please try searching your area without selecting items to find stores that can order the product for you."
+        );
+      }
+      return;
+    }
+
+    const message =
+      options.upcSelect && storesByProducts.length === 0
+        ? "We can't find any stores that have all the items you selected, but the stores below do carry one or more of what you are looking for."
+        : null;
+    let updatedStores = [];
+    if (options.upcSelect) {
+      updatedStores = set.order(storesByProducts, options);
+    } else {
+      updatedStores = set.order(stores, options);
+    }
+
+    callback(updatedStores, message);
+    //   }
+    // );
   },
 };
 
